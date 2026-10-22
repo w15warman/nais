@@ -1,6 +1,9 @@
 name: Cypress Tests
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  push:
+    branches: [feature/add-github-actions-config]
 
 jobs:
   cypress:
