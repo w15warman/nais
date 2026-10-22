@@ -1,0 +1,19 @@
+{
+  "name": "nais-test-task",
+  "version": "1.0.0",
+  "description": "UI and API tests for NAIS",
+  "private": true,
+  "author": "Artem G.",
+  "license": "ISC",
+  "type": "commonjs",
+  "scripts": {
+    "e2e": "npx cypress run --spec 'cypress/e2e/checkout.cy.js' --headed"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "cypress": "^16.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  }
+}

@@ -1,0 +1,17 @@
+/.idea/
+/.vscode/
+/nais-e2e.iml
+*.DS_Store
+# Log file
+*.log
+# .env files
+/.env
+# Dependencies
+node_modules/
+# Cypress artifacts
+/cypress/videos/
+/cypress/screenshots/
+/cypress/downloads/
+/cypress/reports/
+/cypress/results/
+/cypress.env.json
