@@ -14,6 +14,16 @@ class FavoritesPage extends BasePage {
         })
         return this
     }
+
+    removeFromFavorites(productId) {
+        cy.get(`#favorites-list button[data-favorite="${productId}"]`).as('heartButton')
+
+        cy.get('@heartButton').click()
+        cy.get(`#favorites-list [data-testid="product-${productId}"]`)
+            .should('not.exist')
+        return this
+    }
+
 }
 
 module.exports = new FavoritesPage()
