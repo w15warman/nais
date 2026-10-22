@@ -95,11 +95,14 @@ describe('Checkout', () => {
     })
 
     it('TM-CHECKOUT-003: Оформлення 3х одиниць товару в 1 замовленні без промокоду та стандартною доставкою', () => {
-        const product = {
-            id: 'p02',
-            name: 'Портативна колонка «Хвиля»',
-            quantity: 3,
-            price: '4 500,00 грн',
+        const productID = 'p02'
+        const qnt = 3
+
+        const expectedTotals = {
+            'Товари': '4 500,00 грн',
+            'Знижка': '−0,00 грн',
+            'Доставка': '0,00 грн',
+            'Разом': '4 500,00 грн',
         }
 
         const customer = {
@@ -110,12 +113,24 @@ describe('Checkout', () => {
 
         catalogPage
             .findItem('колонка «Хвиля»')
-            .addToCart(product.id)
+            .addToCart(productID)
             .validateToastMessage('Товар додано до кошика')
             .validateCartCount(1)
             .openCart()
-            .increaseQuantity(product.id, product.quantity)
-            .validateItemsInCart(product)
+            .validateItemsInCart({
+                id: productID,
+                name: 'Портативна колонка «Хвиля»',
+                quantity: 1,
+                price: '1 500,00 грн',
+            })
+            .increaseQuantity(productID, qnt)
+            .validateItemsInCart({
+                id: productID,
+                name: 'Портативна колонка «Хвиля»',
+                quantity: qnt,
+                price: '4 500,00 грн',
+            })
+            .validateTotal(expectedTotals)
             .setCustomerData(customer)
             .selectPaymentTestResult('approved')
             .placeOrder()
