@@ -1,10 +1,8 @@
 const cartPage = require('./CartPage')
 const BasePage = require("./BasePage");
 
-const searchInput = '#search'
 const addToCartButton = (productId) => `button[data-add="${productId}"]`
-const cartButton = '#open-cart'
-
+const addToFavoritesButton = (productId) => `button[data-favorite="${productId}"]`
 
 class CatalogPage extends BasePage {
     open() {
@@ -13,7 +11,8 @@ class CatalogPage extends BasePage {
     }
 
     findItem(query) {
-        cy.get(searchInput).type(query)
+        cy.get('#search').as('searchInput').clear()
+        cy.get('@searchInput').type(query)
         return this
     }
 
@@ -22,8 +21,14 @@ class CatalogPage extends BasePage {
         return this
     }
 
+    addToFavorites(productId) {
+        cy.get(addToFavoritesButton(productId)).as('heartButton').click()
+        cy.get('@heartButton').should('have.attr', 'aria-pressed', 'true')
+        return this
+    }
+
     openCart() {
-        cy.get(cartButton).click()
+        cy.get('#open-cart').click()
         return cartPage
     }
 }

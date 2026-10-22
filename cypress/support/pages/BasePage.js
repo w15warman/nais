@@ -16,6 +16,11 @@ class BasePage {
         return this.shouldBeOpened()
     }
 
+    openFavorites() {
+        cy.get('a[data-nav="favorites"]').click()
+        return this.onPage(favoritesPage)
+    }
+
     /** Assert that the browser is on this page (when path is set). */
     shouldBeOpened() {
         if (this.path) {
@@ -66,6 +71,12 @@ class BasePage {
         return this
     }
 
+    validateFavoritesCount(expectedCounterValue) {
+        cy.get('#favorite-count').should('have.text', expectedCounterValue)
+        return this
+    }
+
 }
 
 module.exports = BasePage
+const favoritesPage = require('./FavoritesPage')
