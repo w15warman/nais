@@ -2,10 +2,41 @@ name: Cypress Tests
 
 on: workflow_dispatch
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  cypress:
+  cypress-ui-tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v5
-      - run: npm ci
-      - run: npx cypress run --browser chrome
+        with:
+          persist-credentials: false
+      - uses: cypress-io/github-action@v7
+        with:
+          browser: chrome
+          spec: cypress/e2e/ui/**/*
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-ui-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
+          retention-days: 7
+
+  cypress-api-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: cypress-io/github-action@v7
+        with:
+          browser: chrome
+          spec: cypress/e2e/api/**/*
