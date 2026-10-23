@@ -1,5 +1,5 @@
-const catalogPage = require('../support/pages/CatalogPage')
-const myOrdersPage = require('../support/pages/MyOrdersPage')
+const catalogPage = require('../../support/pages/CatalogPage')
+const myOrdersPage = require('../../support/pages/MyOrdersPage')
 
 describe('Favorites', () => {
     beforeEach(() => {
