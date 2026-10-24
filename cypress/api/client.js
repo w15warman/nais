@@ -19,7 +19,7 @@ export class ApiClient {
         return this.request({...options, method: 'GET', path});
     }
 
-    post(path, body, options = {}) {
+    post(path, body = undefined, options = {}) {
         return this.request({...options, method: 'POST', path, body});
     }
 
