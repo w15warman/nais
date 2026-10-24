@@ -1,4 +1,4 @@
-import { productsFacade } from '../../api/products-facade';
+import { productsFacade } from '../../api/facades/products-facade';
 
 const ITEM_KEYS = ['id', 'name', 'category', 'price', 'stock'];
 
