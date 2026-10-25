@@ -7,8 +7,8 @@
   "license": "ISC",
   "type": "commonjs",
   "scripts": {
-    "e2e": "npx cypress run --spec 'cypress/e2e/ui/favorites.cy.js' --headed",
-    "api": "npx cypress run --spec 'cypress/e2e/api/products.cy.js'"
+    "e2e": "npx cypress run --spec \"cypress/e2e/ui/**/*.cy.js\" --headed",
+    "api": "npx cypress run --spec \"cypress/e2e/api/**/*.cy.js\""
   },
   "devDependencies": {
     "@types/node": "^26.2.0",
