@@ -1,6 +1,7 @@
 const { defineConfig } = require('cypress')
 
 module.exports = defineConfig({
+  projectId: "hztpmj",
   e2e: {
     defaultBrowser: 'chrome',
     baseUrl: 'https://test-me.vzl.one/',

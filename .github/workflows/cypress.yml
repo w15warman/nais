@@ -13,6 +13,10 @@ jobs:
   cypress-ui-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2]
     steps:
       - uses: actions/checkout@v5
         with:
@@ -21,10 +25,16 @@ jobs:
         with:
           browser: chrome
           spec: cypress/e2e/ui/**/*
+          record: true
+          parallel: true
+          group: ui-tests
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-ui-screenshots
+          name: cypress-ui-screenshots-${{ matrix.containers }}
           path: cypress/screenshots
           if-no-files-found: ignore
           retention-days: 7
@@ -32,6 +42,10 @@ jobs:
   cypress-api-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2]
     steps:
       - uses: actions/checkout@v5
         with:
@@ -40,3 +54,9 @@ jobs:
         with:
           browser: chrome
           spec: cypress/e2e/api/**/*
+          record: true
+          parallel: true
+          group: api-tests
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
